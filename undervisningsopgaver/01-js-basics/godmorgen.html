@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <script>
+        if (new Date().getHours() >= 5 && new Date().getHours() < 10) {
+            alert("Godmorgen");
+        }
+
+
+        //Hvis klokken er mellem 10 og 18
+        if (new Date().getHours() >= 10 && new Date().getHours() < 18) {
+            alert("Goddag");
+        }
+
+        //Hvis klokkemn er mellem 18 og 24
+        if (new Date().getHours() > 18 && new Date().getHours() < 24) {
+            alert("Godaften");
+        }
+
+        //Hvis klokken er mellem 24 og 5
+        if (new Date().getHours() >= 24 && new Date().getHours() < 5) {
+            alert("Godnat");
+        }
+
+    </script>
+</body>
+
+</html>
