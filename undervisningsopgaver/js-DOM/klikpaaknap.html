@@ -19,6 +19,11 @@
             font-size: 2rem;
             margin: 10px;
         }
+
+        .move {
+            top: 32.5vw;
+            position: absolute;
+        }
     </style>
 
 </head>
@@ -33,13 +38,54 @@
     <button id="html">
         html
     </button>
-    <button id="slet">
+    <button id="flyt">
         flyt
     </button>
     <div id="box"></div>
     <div id="bax"></div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            console.log(start);
+
+            let slet = document.querySelector("#slet")
+            let html = document.querySelector("#html")
+            let sletBox = document.querySelector("#slet")
+
+        }
+
+        document.querySelector("#klik").addEventListener("click", tilføjTekst);
+
+        function tilføjTekst() {
+            document.querySelector("#box").textContent = "KLIK";
+            document.querySelector("#box").classList.remove("move");
+            document.querySelector("#bax").classList.remove("move");
+        }
+
+        document.querySelector("#slet").addEventListener("click", fjernTekst);
+
+        function fjernTekst() {
+            document.querySelector("#box").textContent = " ";
+            document.querySelector("#box").classList.remove("move");
+            document.querySelector("#bax").classList.remove("move");
+        }
+
+        document.querySelector("#html").addEventListener("click", tilføjOverskrift);
+
+        function tilføjOverskrift() {
+            document.querySelector("#box").innerHTML += "<h2>Overskrift</h2> <p>Brødtekst</p>";
+            document.querySelector("#box").classList.remove("move");
+            document.querySelector("#bax").classList.remove("move");
+        }
+
+        document.querySelector("#flyt").addEventListener("click", flytBox);
+
+        function flytBox() {
+            document.querySelector("#box").classList.add("move");
+            document.querySelector("#bax").classList.add("move");
+        }
     </script>
 </body>
 
