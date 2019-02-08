@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bistro Barbushka</title>
+    <style>
+        #box {
+            height: auto;
+            background-image: linear-gradient(to bottom right, #ce0000, rgb(255, 210, 86));
+            padding: 10px;
+        }
+
+        button {
+            font-size: 1rem;
+            margin: 3px;
+            padding: 5px;
+            background-color: rgba(232, 86, 32, 0.79);
+            color: white;
+            border-color: white;
+            font-family: fantasy;
+
+        }
+
+        #liste {
+            display: grid;
+            grid-template-columns: 10fr 10fr 10fr 10fr;
+            background-color: beige;
+            background-size: contain;
+        }
+
+        h1 {
+            font-family: cursive;
+            font-size: 4rem;
+            color: white;
+        }
+
+        h5 {
+            font-family: serif;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="liste"></div>
+
+    <div id="box"></div>
+
+    <button id="alle">
+        Alle
+    </button>
+    <button id="forretter">
+        Forretter
+    </button>
+    <button id="hovedretter">
+        Hovedretter
+    </button>
+    <button id="desserter">
+        Desserter
+    </button>
+    <button id="drikkevarer">
+        Drikkevarer
+    </button>
+    <button id="sideoders">
+        Side orders
+    </button>
+    <footer>
+        <h5>Adresse:***** Telefonnummer:*****</h5>
+    </footer>
+    <script>
+        let alleRetter = [];
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            console.log(start);
+            document.querySelector("#box").innerHTML += "<h1>Bistro Barbushka</h1>";
+
+            document.querySelector("#alle").addEventListener("click", visAlle);
+            document.querySelector("#forretter").addEventListener("click", visForretter);
+            document.querySelector("#hovedretter").addEventListener("click", visHovedretter);
+            document.querySelector("#desserter").addEventListener("click", visDesserter);
+            document.querySelector("#drikkevarer").addEventListener("click", visDrikkevarer);
+            document.querySelector("#sideoders").addEventListener("click", visSideorders);
+
+            async function getJson() {
+                let jsonData = await fetch("barbushka.json");
+                alleRetter = await jsonData.json();
+                visAlle();
+            }
+        }
+
+        function visAlle() {
+            console.log(visAlle);
+        }
+
+        function visForretter() {
+            console.log(visForretter);
+        }
+
+        function visHovedretter() {
+            console.log(visHovedretter);
+        }
+
+        function visDesserter() {
+            console.log(visDesserter);
+        }
+
+        function visDrikkevarer() {
+            console.log(visDrikkevarer);
+        }
+
+        function visSideorders() {
+            console.log(visSideorders);
+        }
+    </script>
+
+</body>
+
+</html>
