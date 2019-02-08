@@ -6,18 +6,30 @@
     <title></title>
     <style>
         .personer {
-            border: 1px solid black;
-            margin: 5px;
-            padding: 5px;
+            border: 1px solid darkgreen;
+            margin: 20px;
+            padding: px;
+            background-color: beige;
         }
 
         #liste {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 10fr 10fr 10fr 10fr;
+            background-image: url(palmer.jpg);
+            background-size: contain;
         }
 
         img {
             width: 50%;
+        }
+
+        h2 {
+            font-family: fantasy;
+            color: darkblue;
+        }
+
+        p {
+            font-family: serif;
         }
     </style>
 </head>
@@ -44,7 +56,7 @@
                 allePersoner.forEach(personer => {
                     dest.innerHTML += `
             <div class="personer">
-            <h3>${personer.navn}</h3> <br>
+            <h2>${personer.navn}</h2> <br>
             <p>${personer.github}</p>
             <img src="${personer.billede}">
             <p>${personer.alder}</p>
