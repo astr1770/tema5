@@ -6,10 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bistro Barbushka</title>
     <style>
+        .ret {
+            border: 1px solid darkgreen;
+            margin: 20px;
+            padding: 15px;
+            background-color: beige;
+        }
+
         #box {
             height: auto;
             background-image: linear-gradient(to bottom right, #ce0000, rgb(255, 210, 86));
-            padding: 10px;
         }
 
         button {
@@ -28,6 +34,11 @@
             grid-template-columns: 10fr 10fr 10fr 10fr;
             background-color: beige;
             background-size: contain;
+
+        }
+
+        body {
+            margin: auto;
         }
 
         h1 {
@@ -40,80 +51,80 @@
             font-family: serif;
             text-decoration: none;
         }
+
+        .valgt {
+            background-color: rgb(255, 210, 86);
+            color: white;
+        }
     </style>
 </head>
 
 <body>
+    <div id="box">
+        <h1>Bistro Babushka</h1>
+    </div>
+    <header>
+        <nav id="menu">
+            <h2></h2>
+            <button class="filter" data-kategori="alle">Alle</button>
+            <button class="filter" data-kategori="forretter">Forretter</button>
+            <button class="filter" data-kategori="hovedretter">Hovedretter</button>
+            <button class="filter" data-kategori="desserter">Desserter</button>
+            <button class="filter" data-kategori="drikkevarer">Drikkevarer</button>
+            <button class="filter" data-kategori="sideorders">Side orders</button>
+        </nav>
+    </header>
+
     <div id="liste"></div>
 
-    <div id="box"></div>
-
-    <button id="alle">
-        Alle
-    </button>
-    <button id="forretter">
-        Forretter
-    </button>
-    <button id="hovedretter">
-        Hovedretter
-    </button>
-    <button id="desserter">
-        Desserter
-    </button>
-    <button id="drikkevarer">
-        Drikkevarer
-    </button>
-    <button id="sideoders">
-        Side orders
-    </button>
     <footer>
-        <h5>Adresse:***** Telefonnummer:*****</h5>
     </footer>
+
     <script>
-        let alleRetter = [];
+        let retter = [];
+        let filter = "alle";
 
         document.addEventListener("DOMContentLoaded", start);
 
+
         function start() {
-            console.log(start);
-            document.querySelector("#box").innerHTML += "<h1>Bistro Barbushka</h1>";
-
-            document.querySelector("#alle").addEventListener("click", visAlle);
-            document.querySelector("#forretter").addEventListener("click", visForretter);
-            document.querySelector("#hovedretter").addEventListener("click", visHovedretter);
-            document.querySelector("#desserter").addEventListener("click", visDesserter);
-            document.querySelector("#drikkevarer").addEventListener("click", visDrikkevarer);
-            document.querySelector("#sideoders").addEventListener("click", visSideorders);
-
+            let dest = document.querySelector("#liste");
             async function getJson() {
-                let jsonData = await fetch("");
-                alleRetter = await jsonData.json();
-                visAlle();
+                let jsonData = await fetch("barbushka.json");
+                retter = await jsonData.json();
+                visMenu();
             }
-        }
 
-        function visAlle() {
-            console.log(visAlle);
-        }
+            function visMenu() {
+                dest.innerHTML = "";
+                retter.forEach(ret => {
+                    if (filter == "alle" || filter == ret.kategori) {
+                        dest.innerHTML += `
+                            <div class="ret">
+                                    <img src="imgs/small/${ret.billede}">
+                                    <h2>${ret.navn}</h2> <br>
+                                    <p>${ret.kort}</p>
+                                    <p>Pris: ${ret.pris}</p>
+                                </div>
+                            `;
+                    }
+                })
+            }
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+            })
 
-        function visForretter() {
-            console.log(visForretter);
-        }
+            function filtrering() {
+                filter = this.getAttribute("data-kategori");
+                document.querySelector("h2").textContent = this.textContent;
+                document.querySelectorAll(".filter").forEach(elm => {
+                    elm.classList.remove("valgt");
+                })
+                this.classList.add("valgt");
+                visMenu();
+            }
 
-        function visHovedretter() {
-            console.log(visHovedretter);
-        }
-
-        function visDesserter() {
-            console.log(visDesserter);
-        }
-
-        function visDrikkevarer() {
-            console.log(visDrikkevarer);
-        }
-
-        function visSideorders() {
-            console.log(visSideorders);
+            getJson();
         }
     </script>
 
