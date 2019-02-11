@@ -86,7 +86,7 @@
             document.querySelector("#sideoders").addEventListener("click", visSideorders);
 
             async function getJson() {
-                let jsonData = await fetch("barbushka.json");
+                let jsonData = await fetch("");
                 alleRetter = await jsonData.json();
                 visAlle();
             }
