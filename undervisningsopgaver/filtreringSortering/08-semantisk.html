@@ -35,18 +35,28 @@
 
         .valgt {
             background-color: darkblue;
+            color: white;
         }
     </style>
 </head>
 
 <body>
-    <div class="menu">
+    <header>
         <h1></h1>
-        <button class="filter" data-hold="alle">Alle</button>
-        <button class="filter" data-hold="a">Hold A</button>
-        <button class="filter " data-hold="b">Hold B</button>
+        <nav>
+            <div class="menu">
+                <button class="filter" data-hold="alle">Alle</button>
+                <button class="filter" data-hold="a">Hold A</button>
+                <button class="filter " data-hold="b">Hold B</button>
+            </div>
+        </nav>
+    </header>
+    <div id="main">
+        <div id="liste"></div>
     </div>
-    <div id="liste"></div>
+
+    <footer></footer>
+
     <script>
         let personer = [];
         let filter = "alle";
@@ -60,7 +70,7 @@
                 let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1OLlD_GRoz71piHvnW306omRAyHS7vtLOILQt-K0YF_c");
                 personer = await jsonData.json();
                 personer.sort((a, b) => {
-                    return a.alder - b.alder
+                    return a.navn.localeCompare(b.navn);
                 })
                 visPersoner();
             }

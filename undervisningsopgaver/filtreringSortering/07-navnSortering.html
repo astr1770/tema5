@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        .person {
+            border: 1px solid darkgreen;
+            margin: 10px;
+            padding: 15px;
+            background-color: beige;
+        }
+
+        #liste {
+            display: grid;
+            grid-template-columns: 10fr 10fr 10fr 10fr;
+            background-image: url(wave.jpeg);
+            background-size: contain;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        h2 {
+            font-family: fantasy;
+            color: darkblue;
+        }
+
+        p {
+            font-family: serif;
+        }
+
+        .valgt {
+            background-color: darkblue;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu">
+        <h1></h1>
+        <button class="filter" data-hold="alle">Alle</button>
+        <button class="filter" data-hold="a">Hold A</button>
+        <button class="filter " data-hold="b">Hold B</button>
+    </div>
+    <div id="liste"></div>
+    <script>
+        let personer = [];
+        let filter = "alle";
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start() {
+            console.log(start);
+            let dest = document.querySelector("#liste");
+            async function getJson() {
+                let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1OLlD_GRoz71piHvnW306omRAyHS7vtLOILQt-K0YF_c");
+                personer = await jsonData.json();
+                personer.sort((a, b) => {
+                    return a.navn.localeCompare(b.navn);
+                })
+                visPersoner();
+            }
+
+            function visPersoner() {
+                dest.innerHTML = "";
+                personer.forEach(person => {
+                    if (filter == "alle" || filter == person.hold) {
+                        dest.innerHTML += `
+            <div class="person">
+                <h2>${person.navn}</h2> <br>
+                <p>${person.github}</p>
+                <img src="${person.billede}">
+                <p>${person.alder}</p>
+                <p>${person.køn}</p>
+                <p>${person.email}</p>
+                <p>${person.hold}</p>
+                <p>${person.historie}</p>
+            </div>
+            `;
+                    }
+                })
+
+            }
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+            })
+
+            function filtrering() {
+                filter = this.getAttribute("data-hold");
+                document.querySelector("h1").textContent = this.textContent;
+                document.querySelectorAll(".filter").forEach(elm => {
+                    elm.classList.remove("valgt");
+                })
+                this.classList.add("valgt");
+                visPersoner();
+            }
+
+            getJson();
+        }
+    </script>
+</body>
+
+</html>
