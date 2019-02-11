@@ -37,23 +37,25 @@
             background-color: darkblue;
             color: white;
         }
+
+        nav,
+        header {
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
     <header>
         <h1></h1>
-        <nav>
-            <div class="menu">
-                <button class="filter" data-hold="alle">Alle</button>
-                <button class="filter" data-hold="a">Hold A</button>
-                <button class="filter " data-hold="b">Hold B</button>
-            </div>
+        <nav class="menu">
+            <button class="filter" data-hold="alle">Alle</button>
+            <button class="filter" data-hold="a">Hold A</button>
+            <button class="filter " data-hold="b">Hold B</button>
         </nav>
     </header>
-    <div id="main">
-        <div id="liste"></div>
-    </div>
+
+    <section id="liste"></section>
 
     <footer></footer>
 
