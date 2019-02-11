@@ -32,7 +32,6 @@
         p {
             font-family: serif;
         }
-
     </style>
 </head>
 
@@ -40,43 +39,41 @@
     <div id="liste"></div>
 
     <script>
-        let allePersoner = [];
-        let filter = "b"
+        let personer = [];
+        let filter = "b";
 
         document.addEventListener("DOMContentLoaded", start);
 
         function start() {
             console.log(start);
             let dest = document.querySelector("#liste");
-
             async function getJson() {
                 let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1OLlD_GRoz71piHvnW306omRAyHS7vtLOILQt-K0YF_c");
-                allePersoner = await jsonData.json();
+                personer = await jsonData.json();
                 visPersoner();
             }
 
             function visPersoner() {
-                allePersoner.forEach(personer => {
-                    dest.innerHTML += `
-            <div class="personer">
-            <h2>${personer.navn}</h2> <br>
-            <p>${personer.github}</p>
-            <img src="${personer.billede}">
-            <p>${personer.alder}</p>
-            <p>${personer.køn}</p>
-            <p>${personer.email}</p>
-            <p>${personer.hold}</p>
-            <p>${personer.historie}</p>
-            </div>`;
-
-
-
+                personer.forEach(person => {
+                    if (person.hold == filter) {
+                        dest.innerHTML += `
+            <div class="person">
+                <h2>${person.navn}</h2> <br>
+                <p>${person.github}</p>
+                <img src="${person.billede}">
+                <p>${person.alder}</p>
+                <p>${person.køn}</p>
+                <p>${person.email}</p>
+                <p>${person.hold}</p>
+                <p>${person.historie}</p>
+            </div>
+            `;
+                    }
                 })
             }
 
             getJson();
         }
-
     </script>
 </body>
 
