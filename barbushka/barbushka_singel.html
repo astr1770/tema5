@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Bistro Barbushka</title>
     <style>
         html,
         body,
@@ -19,7 +19,6 @@
             height: 100vw;
             background-color: aquamarine;
         }
-
 
         #indhold {
             box-sizing: border-box;
@@ -42,7 +41,6 @@
         #indhold img {
             height: 300px;
         }
-
     </style>
 </head>
 
@@ -51,49 +49,52 @@
         <div id="luk"><button>X</button></div>
         <div id="indhold"></div>
     </div>
+
     <script>
         let urlParams = new URLSearchParams(window.location.search);
         let github = urlParams.get("github");
         console.log(github)
 
-        let personer = [];
-        let person;
+        let retter = [];
+        let ret;
+
         document.addEventListener("DOMContentLoaded", start);
+
 
         function start() {
             let dest = document.querySelector("#liste");
 
             async function getJson() {
-                let jsonData = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1OLlD_GRoz71piHvnW306omRAyHS7vtLOILQt-K0YF_c");
-                personer = await jsonData.json();
-                personer.forEach(obj => {
-                    if (obj.github == github) {
-                        person = obj;
+                let jsonData = await fetch("barbushka.json");
+                retter = await jsonData.json();
+                retter.forEach(obj => {
+                    if (obj.id == id) {
+                        ret = obj;
                     }
                 })
-                console.log(person)
+                console.log(ret)
                 åbn();
             }
 
             function åbn() {
                 document.querySelector("#indhold").innerHTML = `
-                        <article class="person">
-                            <h2>${person.navn}</h2>
-                            <img class="billede" src="${person.billede}" alt="${person.navn}">
-                            <p>Hold: ${person.hold}, Alder:${person.alder}</p>
-                            <h3>${person.navn}´s historie</h3>
-                            <p>${person.historie}</p>
-                        </article>
+                        <articel class="ret">
+                                    <img src="imgs/small/${ret.billede}">
+                                    <h2>${ret.navn}</h2> <br>
+                                    <p>${ret.kort}</p>
+                                    <p>Pris: ${ret.pris}</p>
+                                </articel>
+
                                 `;
             }
 
             document.querySelector("#luk button").addEventListener("click", () => {
-                location.href = "05-kald.html"
+                location.href = "barbushka.html"
             })
             getJson();
         }
-
     </script>
+
 </body>
 
 </html>
