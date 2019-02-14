@@ -116,7 +116,7 @@
             font-size: 1em;
         }
 
-        articel {
+        article {
             text-align: left;
 
         }
@@ -169,25 +169,25 @@
                 retter.forEach(ret => {
                     if (filter == "alle" || filter == ret.kategori) {
                         let template = `
-                            <div class="ret">
+                            <article class="ret">
                                     <img src="imgs/small/${ret.billede}-sm.jpg">
                                     <h2>${ret.navn}</h2> <br>
                                     <p>${ret.kort}</p>
                                     <p>Pris: ${ret.pris}</p>
-                                </div>
+                                </article>
                             `;
                         dest.insertAdjacentHTML("beforeend", template);
                         dest.lastElementChild.addEventListener("click", åbn);
 
                         function åbn() {
                             document.querySelector("#indhold").innerHTML = `
-                                <articel class="ret">
+                                <article class="ret">
                                     <img src="imgs/large/${ret.billede}.jpg">
                                     <h2>${ret.navn}</h2> <br>
                                     <p>${ret.lang}</p>
                                     <p>${ret.oprindelse}</p>
                                     <p>Pris: ${ret.pris}</p>
-                                </articel>
+                                </article>
                                 `;
                             document.querySelector("#popup").style.display = "block";
                         }
