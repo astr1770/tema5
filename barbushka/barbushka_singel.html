@@ -22,10 +22,30 @@
 
         #indhold {
             box-sizing: border-box;
-            background-color: beige;
             width: 90vw;
-            height: 90vh;
+            height: auto;
             margin: auto;
+        }
+
+        p {
+            text-align: left;
+            margin: 0px 50px 20px 50px;
+            font-family: serif;
+
+        }
+
+        h2 {
+            text-align: left;
+            margin: 0px 50px 0px 50px;
+            font-family: fantasy;
+            font-size: 2rem;
+            color: rgba(232, 86, 32, 0.79)
+        }
+
+        img {
+            width: 50%;
+            margin: 30px 0px;
+            text-align: center;
         }
 
         #luk {
@@ -38,15 +58,34 @@
             font-size: 2em;
         }
 
-        #indhold img {
-            height: 300px;
-        }
-
         .ret {
             margin: 20px;
             padding: 15px;
             background-color: beige;
+            text-align: center;
         }
+
+        #luk {
+            box-sizing: border-box;
+            text-align: right;
+            padding: 5px 5vw;
+        }
+
+        #luk button {
+            font-size: 1em;
+        }
+
+        button {
+            font-size: 1rem;
+            margin: 0px 10px 10px 10px;
+            padding: 10px;
+            background-color: rgba(232, 86, 32, 0.79);
+            color: white;
+            border-color: white;
+            font-family: fantasy;
+
+        }
+
     </style>
 </head>
 
@@ -86,18 +125,23 @@
                 document.querySelector("#indhold").innerHTML = `
                         <article class="ret">
                                     <img class="billede" src="imgs/large/${ret.billede}.jpg">
+                                    <br>
                                     <h2>${ret.navn}</h2> <br>
-                                    <p>${ret.kort}</p>
+                                    <p>${ret.lang}</p>
+                                    <br>
+                                    <p>Oprindelse: ${ret.oprindelse}</p>
+                                    <br>
                                     <p>Pris: ${ret.pris}</p>
                                 </article>
                                 `;
             }
 
             document.querySelector("#luk button").addEventListener("click", () => {
-                location.href = "barbushka_singel1.html"
+                location.href = "barbushka.html";
             })
             getJson();
         }
+
     </script>
 
 </body>
