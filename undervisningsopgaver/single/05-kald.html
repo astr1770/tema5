@@ -127,12 +127,9 @@
                         dest.lastElementChild.addEventListener("click", () => {
                             location.href = "07-singleView.html?github=" + person.github;
                         });
-
                     }
                 })
-
             }
-
             document.querySelectorAll(".filter").forEach(elm => {
                 elm.addEventListener("click", filtrering);
             })

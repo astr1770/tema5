@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bistro Barbushka</title>
+    <style>
+        html,
+        body,
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .ret {
+            margin: 20px;
+            padding: 15px;
+            background-color: beige;
+        }
+
+        #box {
+            height: auto;
+            background-image: linear-gradient(to bottom right, #ce0000, rgb(255, 210, 86));
+            padding: 20px;
+            text-align: center;
+        }
+
+        button {
+            font-size: 1rem;
+            margin: 0px 10px 10px 10px;
+            padding: 10px;
+            background-color: rgba(232, 86, 32, 0.79);
+            color: white;
+            border-color: white;
+            font-family: fantasy;
+
+        }
+
+        #liste {
+            display: grid;
+            grid-template-columns: 10fr 10fr 10fr 10fr;
+            background-color: beige;
+            background-size: contain;
+
+        }
+
+        h1 {
+            font-family: cursive;
+            font-size: 4rem;
+            color: white;
+        }
+
+        h2 {
+            font-family: fantasy;
+            font-size: 1.2rem;
+            color: rgba(232, 86, 32, 0.79)
+        }
+
+        p {
+            font-family: serif;
+        }
+
+        .valgt {
+            background-color: rgb(255, 210, 86);
+            color: white;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        nav {
+            text-align: center;
+        }
+
+
+        #indhold {
+            background-color: beige;
+            width: 70vw;
+            height: 45vw;
+            margin: auto;
+            text-align: center;
+        }
+
+        #indhold p {
+            text-align: left;
+            margin: 0px 50px 50px 50px;
+
+        }
+
+        #indhold h2 {
+            text-align: left;
+            margin: 0px 50px 0px 50px;
+        }
+
+        #indhold img {
+            width: 50%;
+            margin: 30px 0px;
+        }
+
+        #luk {
+            box-sizing: border-box;
+            text-align: right;
+            padding: 5px 5vw;
+        }
+
+        #luk button {
+            font-size: 1em;
+        }
+
+        articel {
+            text-align: left;
+
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <h1>Bistro Babushka</h1>
+    </div>
+
+    <header>
+        <nav id="menu">
+            <h2></h2>
+            <button class="filter" data-kategori="alle">Alle</button>
+            <button class="filter" data-kategori="forretter">Forretter</button>
+            <button class="filter" data-kategori="hovedretter">Hovedretter</button>
+            <button class="filter" data-kategori="desserter">Desserter</button>
+            <button class="filter" data-kategori="drikkevarer">Drikkevarer</button>
+            <button class="filter" data-kategori="sideorders">Side orders</button>
+        </nav>
+    </header>
+
+    <div id="liste"></div>
+
+    <footer>
+    </footer>
+
+    <script>
+        let retter = [];
+        let filter = "alle";
+
+        document.addEventListener("DOMContentLoaded", start);
+
+
+        function start() {
+            let dest = document.querySelector("#liste");
+            async function getJson() {
+                let jsonData = await fetch("barbushka.json");
+                retter = await jsonData.json();
+                visMenu();
+            }
+
+            function visMenu() {
+                dest.innerHTML = "";
+                retter.forEach(ret => {
+                    if (filter == "alle" || filter == ret.kategori) {
+                        let template = `
+                            <article class="ret">
+                                    <img src="imgs/small/${ret.billede}-sm.jpg">
+                                    <h2>${ret.navn}</h2> <br>
+                                    <p>${ret.kort}</p>
+                                    <p>Pris: ${ret.pris}</p>
+                                </article>
+                            `;
+                        dest.insertAdjacentHTML("beforeend", template);
+                        dest.lastElementChild.addEventListener("click", () => {
+                            location.href = "barbushka_singel.html";
+                        });
+                    }
+                })
+            }
+            document.querySelectorAll(".filter").forEach(elm => {
+                elm.addEventListener("click", filtrering);
+            })
+
+            function filtrering() {
+                filter = this.getAttribute("data-kategori");
+                document.querySelector("h2").textContent = this.textContent;
+                document.querySelectorAll(".filter").forEach(elm => {
+                    elm.classList.remove("valgt");
+                })
+                this.classList.add("valgt");
+                visMenu();
+            }
+            getJson();
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -17,12 +17,12 @@
             box-sizing: border-box;
             width: 100vw;
             height: 100vw;
-            background-color: aquamarine;
+            background-color: rgba(232, 86, 32, 0.79);
         }
 
         #indhold {
             box-sizing: border-box;
-            background-color: aliceblue;
+            background-color: beige;
             width: 90vw;
             height: 90vh;
             margin: auto;
@@ -41,6 +41,12 @@
         #indhold img {
             height: 300px;
         }
+
+        .ret {
+            margin: 20px;
+            padding: 15px;
+            background-color: beige;
+        }
     </style>
 </head>
 
@@ -52,12 +58,11 @@
 
     <script>
         let urlParams = new URLSearchParams(window.location.search);
-        let github = urlParams.get("github");
-        console.log(github)
+        let id = urlParams.get("id");
+        console.log(id)
 
         let retter = [];
         let ret;
-
         document.addEventListener("DOMContentLoaded", start);
 
 
@@ -74,22 +79,22 @@
                 })
                 console.log(ret)
                 åbn();
+
             }
 
             function åbn() {
                 document.querySelector("#indhold").innerHTML = `
-                        <articel class="ret">
-                                    <img src="imgs/small/${ret.billede}">
+                        <article class="ret">
+                                    <img class="billede" src="imgs/large/${ret.billede}.jpg">
                                     <h2>${ret.navn}</h2> <br>
                                     <p>${ret.kort}</p>
                                     <p>Pris: ${ret.pris}</p>
-                                </articel>
-
+                                </article>
                                 `;
             }
 
             document.querySelector("#luk button").addEventListener("click", () => {
-                location.href = "barbushka.html"
+                location.href = "barbushka_singel1.html"
             })
             getJson();
         }
